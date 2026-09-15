@@ -1,27 +1,19 @@
-﻿/* .csproj:
- Contains project settings such as the target framework,
- output type, implicit usings, and nullable settings.
+﻿
 
- Program.cs:
- Contains the main application code and uses an explicit Main method.
-
- obj/:
- Contains intermediate build files generated during the build process.
-
- bin/:
- Contains the final compiled output of the project. */
+using System.Drawing;
 
 namespace CSharpBasicsAssignment;
 
-/* A file-scoped namespace removes one level of indentation
- because the rest of the file automatically belongs to this namespace
- without requiring an additional pair of braces. */
+
 
 class Program
 {
     static void Main()
     {
         RunTypesDemo();
+        RunValueVsReferenceDemo();
+
+
     }
     public static void RunTypesDemo()
     {
@@ -92,9 +84,57 @@ class Program
         Console.WriteLine(p);
 
     }
+    public struct point
+    {
+        public int X;
+        public int Y;
+    }
+    public static void RunValueVsReferenceDemo()
+    {
+        Point p1 = new Point { X = 1, Y = 2 };
+        Point p2 = p1;
+        p2.X = 99;
+
+        Console.WriteLine($"p1.X = {p1.X}");
+        Console.WriteLine($"p2.X = {p2.X}");
+        // struct is a value type.
+        // therefore,changhing p2 does not affect p1.
+        Order o1 = new Order
+        {
+            OrderId = 1,
+            CustomerName = "Mohamed",
+            Quantity = 2,
+            UnitPrice = 100m,
+            DiscountPercent = 10,
+            ShippingCity = "Assiut",
+            Priority = 'H',
+            ItemCode = 12345L,
+            IsPaid = false
+        };
+        o1.CalculateTotal();
+        Order o2 = o1;
+        o2.IsPaid = true;
+        // Order is a reference type, so o1 and o2 refer to the same object.
+        // Changing the object through o2 also changes what o1 sees.
+
+        Console.WriteLine($"o1.IsPaid = {o1.IsPaid}");
+        Console.WriteLine($"o2.IsPaid = {o2.IsPaid}");
+        object boxedOrder = o1;
+
+        // No actual boxing occurs here because Order is already a reference type.
+        // The object variable simply stores the same reference.
+
+        Order o3 = (Order)boxedOrder;
+        Console.WriteLine($"Same object: {object.ReferenceEquals(o1, o3)}");
+
+        o2.PrintSummary();
+        /*
+         Value types store their values directly, while reference types store a reference to an object.
+          For a value type, assignment copies the actual value, so each variable has its own copy.
+          For a reference type, assignment copies the reference, so both variables can refer to the same object on the heap.
+          Storing a reference type in an object variable does not create a new object; it only stores the same reference.
+         */
+    }
 }
 
-// This project uses the newer .slnx solution format.
-// The classic .sln format is more widely supported by older tools
-// and older versions of Visual Studio.
- 
+
