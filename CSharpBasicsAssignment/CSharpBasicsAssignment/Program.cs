@@ -12,6 +12,10 @@ class Program
     {
         RunTypesDemo();
         RunValueVsReferenceDemo();
+        FirstFieldMethod();
+        SecondFieldMethod();
+        CompoundAssignment();
+        Bitwise();
 
 
     }
@@ -135,6 +139,86 @@ class Program
           Storing a reference type in an object variable does not create a new object; it only stores the same reference.
          */
     }
+    private static int fieldValue;
+    static void FirstFieldMethod()
+    {
+        Console.WriteLine($"Field value: {fieldValue}");
+    }
+    static void SecondFieldMethod()
+    {
+        Console.WriteLine($"Field value from second method: {fieldValue}");
+    }
+    static void MethodScope()
+    {
+        int localValue = 20;
+
+        Console.WriteLine($"Local value: {localValue}");
+    }
+    static void BlockScope()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int loopValue = i;
+
+            Console.WriteLine($"i = {i}, loopValue = {loopValue}");
+        }
+
+        // i and loopValue cannot be accessed here because their scope is the for block.
+        // Console.WriteLine(i);
+        // Console.WriteLine(loopValue);
+    }
+    static void CompoundAssignment()
+    {
+        Console.WriteLine("\n=== D2: Compound Assignment Operators ===");
+
+        int total = 100;
+
+        total += 10;
+        Console.WriteLine($"After += 10: {total}");
+
+        total -= 5;
+        Console.WriteLine($"After -= 5: {total}");
+
+        total *= 2;
+        Console.WriteLine($"After *= 2: {total}");
+
+        total /= 3;
+        Console.WriteLine($"After /= 3: {total}");
+
+        total %= 4;
+        Console.WriteLine($"After %= 4: {total}");
+
+        // total += 10 is equivalent to total = total + 10.
+    }
+    static void Bitwise()
+    {
+       
+
+        int a = 12;
+        int b = 10;
+        Console.WriteLine($"12 & 10 = {a & b}");
+        Console.WriteLine($"12 | 10 = {a | b}");
+        Console.WriteLine($"12 ^ 10 = {a ^ b}");
+
+        bool left = false;
+
+        bool BitwiseRight()
+        {
+            Console.WriteLine("Right operand evaluated");
+            return true;
+        }
+
+        Console.WriteLine("Using &&:");
+        bool result1 = left && BitwiseRight();
+        Console.WriteLine($"Result: {result1}");
+
+        Console.WriteLine("Using &:");
+        bool result2 = left & BitwiseRight();
+        Console.WriteLine($"Result: {result2}");
+
+        
+    }
+
 }
 
 
